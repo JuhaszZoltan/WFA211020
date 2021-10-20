@@ -13,16 +13,32 @@ namespace WFA211020
 {
     public partial class FrmMain : Form
     {
-        private static string connString =
-            @"Data Source=(localdb)\MSSQLLocalDB;" +
-            "Initial Catalog=UniMenes;";
+        //private static string connString =
+        //    @"Data Source=(localdb)\MSSQLLocalDB;" +
+        //    "Initial Catalog=UniMenes;";
+
+        private string fullPath;
+        private string connString;
+            
         public FrmMain()
         {
+            fullPath = AppDomain.CurrentDomain
+            .BaseDirectory
+            .Replace(@"bin\Debug\", @"Resources\UniMenes.mdf");
+
+            connString = @"Server=(localdb)\MSSQLLocalDB;" +
+            $@"AttachDbFileName={fullPath};";
+
+            
+
             InitializeComponent();
         }
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
+
+
+
             using (var conn = new SqlConnection(connString))
             {
                 conn.Open();
