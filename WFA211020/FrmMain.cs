@@ -29,16 +29,27 @@ namespace WFA211020
             connString = @"Server=(localdb)\MSSQLLocalDB;" +
             $@"AttachDbFileName={fullPath};";
 
-            
-
             InitializeComponent();
         }
 
-        private void FrmMain_Load(object sender, EventArgs e)
+        private void FrmMain_Load(object sender, EventArgs e) => UpdateDGV();
+
+        private void MainDGV_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            //string kuid = mainDGV.SelectedRows[0].Cells[0].Value.ToString();
+            //int kuid = Convert.ToInt32(mainDGV[0, e.RowIndex].Value);
+        }
 
+        private void BejelentesTSMI_Click(object sender, EventArgs e)
+        {
+            var frm = new FrmAdatlap(connString);
+            frm.ShowDialog();
+            UpdateDGV();
+        }
 
-
+        private void UpdateDGV()
+        {
+            mainDGV.Rows.Clear();
             using (var conn = new SqlConnection(connString))
             {
                 conn.Open();
@@ -49,7 +60,6 @@ namespace WFA211020
                     "INNER JOIN Unikornis ON Fajta.Id = FajtaId " +
                     "INNER JOIN Tenyeszto ON Tenyeszto.Id = TulajdonosId;", conn)
                     .ExecuteReader();
-
                 while (r.Read())
                 {
                     mainDGV.Rows.Add(
@@ -58,15 +68,7 @@ namespace WFA211020
                         r.GetBoolean(5) ? "csődör" : "kanca");
                 }
             }
-        }
 
-        private void mainDGV_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //string kuid = mainDGV.SelectedRows[0].Cells[0].Value.ToString();
-            int kuid = Convert.ToInt32(mainDGV[0, e.RowIndex].Value);
-            
-            var frm = new FrmAdatlap(connString, kuid);
-            frm.ShowDialog();
         }
     }
 }

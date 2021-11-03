@@ -53,7 +53,8 @@ namespace WFA211020
             this.bejelentesTSMI});
             this.mainMS.Location = new System.Drawing.Point(0, 0);
             this.mainMS.Name = "mainMS";
-            this.mainMS.Size = new System.Drawing.Size(1002, 78);
+            this.mainMS.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.mainMS.Size = new System.Drawing.Size(752, 73);
             this.mainMS.TabIndex = 0;
             this.mainMS.Text = "menuStrip1";
             // 
@@ -62,7 +63,7 @@ namespace WFA211020
             this.tenyesztoTSMI.Image = global::WFA211020.Properties.Resources.wizard;
             this.tenyesztoTSMI.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tenyesztoTSMI.Name = "tenyesztoTSMI";
-            this.tenyesztoTSMI.Size = new System.Drawing.Size(95, 74);
+            this.tenyesztoTSMI.Size = new System.Drawing.Size(76, 69);
             this.tenyesztoTSMI.Text = "Tenyésztők";
             this.tenyesztoTSMI.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
@@ -71,7 +72,7 @@ namespace WFA211020
             this.parkeresoTSMI.Image = global::WFA211020.Properties.Resources.love;
             this.parkeresoTSMI.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.parkeresoTSMI.Name = "parkeresoTSMI";
-            this.parkeresoTSMI.Size = new System.Drawing.Size(86, 74);
+            this.parkeresoTSMI.Size = new System.Drawing.Size(70, 69);
             this.parkeresoTSMI.Text = "Párkereső";
             this.parkeresoTSMI.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
@@ -80,9 +81,10 @@ namespace WFA211020
             this.bejelentesTSMI.Image = global::WFA211020.Properties.Resources.unicorn;
             this.bejelentesTSMI.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.bejelentesTSMI.Name = "bejelentesTSMI";
-            this.bejelentesTSMI.Size = new System.Drawing.Size(91, 74);
+            this.bejelentesTSMI.Size = new System.Drawing.Size(72, 69);
             this.bejelentesTSMI.Text = "Bejelentés";
             this.bejelentesTSMI.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.bejelentesTSMI.Click += new System.EventHandler(this.BejelentesTSMI_Click);
             // 
             // mainDGV
             // 
@@ -100,15 +102,16 @@ namespace WFA211020
             this.Column4,
             this.Column5,
             this.Column6});
-            this.mainDGV.Location = new System.Drawing.Point(12, 91);
+            this.mainDGV.Location = new System.Drawing.Point(11, 85);
+            this.mainDGV.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.mainDGV.Name = "mainDGV";
             this.mainDGV.RowHeadersVisible = false;
             this.mainDGV.RowHeadersWidth = 51;
             this.mainDGV.RowTemplate.Height = 24;
             this.mainDGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.mainDGV.Size = new System.Drawing.Size(978, 465);
+            this.mainDGV.Size = new System.Drawing.Size(734, 378);
             this.mainDGV.TabIndex = 1;
-            this.mainDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mainDGV_CellClick);
+            this.mainDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MainDGV_CellClick);
             // 
             // Column1
             // 
@@ -151,13 +154,14 @@ namespace WFA211020
             // 
             // FrmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Violet;
-            this.ClientSize = new System.Drawing.Size(1002, 568);
+            this.ClientSize = new System.Drawing.Size(752, 476);
             this.Controls.Add(this.mainDGV);
             this.Controls.Add(this.mainMS);
             this.MainMenuStrip = this.mainMS;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FrmMain";
             this.Text = "Unikornis Menes Manager 2021";
             this.Load += new System.EventHandler(this.FrmMain_Load);

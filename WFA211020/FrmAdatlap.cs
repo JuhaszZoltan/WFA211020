@@ -8,36 +8,86 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WFA211020.Properties;
 
 namespace WFA211020
 {
     public partial class FrmAdatlap : Form
     {
         string connString;
-        int id;
 
-        public FrmAdatlap(string connString, int id)
+        public FrmAdatlap(string connString)
         {
             this.connString = connString;
-            this.id = id;
             InitializeComponent();
         }
 
         private void FrmAdatlap_Load(object sender, EventArgs e)
         {
-            using (var conn = new SqlConnection(connString))
+            using(var c = new SqlConnection(connString))
             {
-                conn.Open();
-                var r = new SqlCommand(
-                    $"SELECT * FROM Unikornis WHERE Id = {id};",
-                    conn)
+                c.Open();
+
+                var r = new SqlCommand("SELECT Nev FROM Tenyeszto;", c)
                     .ExecuteReader();
-                r.Read();
-                lblInfo.Text = $"{r[0]} - {r[1]} - {r[2]} - {r[3]} - {r[4]}";
+                while (r.Read()) cbTulajok.Items.Add(r[0]);
+                r.Close();
+                r = new SqlCommand("SELECT Nev FROM Fajta", c)
+                    .ExecuteReader();
+                while (r.Read()) cbFajtak.Items.Add(r[0]);
+
+                cbFajtak.SelectedIndex = 0;
+                cbTulajok.SelectedIndex = 0;
+            }
+        }
+
+        private void CbFajtak_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cbFajtak.Text)
+            {
+                case "dapper": 
+                    pbKep.Image = Resources.dapper;
+                    return;
+                case "hipster":
+                    pbKep.Image = Resources.hipster;
+                    return;
+                case "ninja":
+                    pbKep.Image = Resources.ninja;
+                    return;
+                case "nyan":
+                    pbKep.Image = Resources.nyan;
+                    return;
+                case "robot":
+                    pbKep.Image = Resources.robot;
+                    return;
+                case "zombie":
+                    pbKep.Image = Resources.zombie;
+                    return;
             }
 
+        }
 
-                
+        private void BtnInsert_Click(object sender, EventArgs e)
+        {
+            using (var c = new SqlConnection(connString))
+            {
+                c.Open();
+                var adapter = new SqlDataAdapter()
+                {
+                    InsertCommand = new SqlCommand(
+                        "INSERT INTO Unikornis VALUES " +
+                        $"({cbTulajok.SelectedIndex + 1}, {cbFajtak.SelectedIndex + 1}, {nudSuly.Value}, {(rbKanca.Checked ? 0 : 1)});", c),
+                };
+
+                adapter.InsertCommand.ExecuteNonQuery();
+
+                //new SqlCommand(
+                //        "INSERT INTO Unikornis VALUES " +
+                //        $"({cbTulajok.SelectedIndex + 1}, {cbFajtak.SelectedIndex + 1}," +
+                //        $" {nudSuly.Value}, {(rbKanca.Checked ? 0 : 1)});", c)
+                //    .ExecuteNonQuery();
+            }
+            this.Dispose();
         }
     }
 }
