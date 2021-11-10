@@ -35,9 +35,13 @@ namespace WFA211020
         private void FrmMain_Load(object sender, EventArgs e) => UpdateDGV();
 
         private void MainDGV_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //string kuid = mainDGV.SelectedRows[0].Cells[0].Value.ToString();
-            //int kuid = Convert.ToInt32(mainDGV[0, e.RowIndex].Value);
+        {           
+            string f = mainDGV[1, e.RowIndex].Value + "";
+            string v = mainDGV[3, e.RowIndex].Value + "";
+            string s = mainDGV[4, e.RowIndex].Value + "";
+            int n = mainDGV[5, e.RowIndex].Value + "" == "kanca" ? 0 : 1;
+
+            new FrmParkereso(connString, v, f, s, n).ShowDialog();
         }
 
         private void BejelentesTSMI_Click(object sender, EventArgs e)
